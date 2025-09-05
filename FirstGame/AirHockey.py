@@ -131,16 +131,6 @@ class Game(simpleGE.Scene):
         if self.bottomScore == 10:
             self.stop()
 
-        
-
-       
-
-
-
-
-
-
-
 def main():
     keepGoing = True    
     fScore =0 
