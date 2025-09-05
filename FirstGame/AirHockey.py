@@ -1,4 +1,9 @@
 import simpleGE, pygame, random
+class Nets(simpleGE.Sprite):
+    def __init__(self, scene):
+        super().__init__(scene)
+        self.setSize(150, 1)
+        self.x = self.screenWidth/2
 
 class Puck(simpleGE.Sprite):
     def __init__(self, scene):
@@ -20,21 +25,26 @@ class Paddle(simpleGE.Sprite):
         self.setSize(100,100)
         self.setAngle(90)
         self.x = self.screenWidth/2
+        self.boundAction = self.STOP
+
 
 class Game(simpleGE.Scene):
     def __init__(self):
         super().__init__()
         self.setImage("Background.png")
-        
         self.puck = Puck(self)
         self.paddleTop = Paddle(self)
         self.paddleTop.y = 50
+        self.netTop = Nets(self)
+        self.netTop.y = 2
         self.paddleBottom = Paddle(self)
         self.paddleBottom.y = 425
+        self.netBottom = Nets(self)
+        self.netBottom.y = 478
         self.moveSpeed = 4
-        self.sprites = [self.puck, self.paddleBottom,self.paddleTop]
+        self.sprites = [self.puck, self.paddleBottom,self.paddleTop,self.netBottom,self.netTop]
     def process(self):
-        
+        maxDY = 5
         if self.isKeyPressed(pygame.K_d):   
             self.paddleTop.x += self.moveSpeed
         if self.isKeyPressed(pygame.K_a):   
@@ -51,7 +61,24 @@ class Game(simpleGE.Scene):
             self.paddleBottom.forward(-5)
         if self.isKeyPressed(pygame.K_UP):
             self.paddleBottom.forward(5)
-        
+        if self.puck.collidesWith(self.paddleBottom):
+            self.puck.dx *= -1
+            relY = self.puck.y - self.paddleBottom.y
+            relY /= self.paddleBottom.rect.height
+            relY *= 2
+            relY *=maxDY
+            self.puck.dy = relY
+
+        if self.puck.collidesWith(self.paddleTop):
+            self.puck.dx *= -1
+            relY = self.puck.y - self.paddleTop.y
+            relY /= self.paddleBottom.rect.height
+            relY *= 2
+            relY *=maxDY
+            self.puck.dy = relY
+
+
+
 
 def main():
     game = Game()
