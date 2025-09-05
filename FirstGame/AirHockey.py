@@ -1,10 +1,36 @@
 import simpleGE, pygame, random
+class Intro(simpleGE.Scene):
+    def __init__(self,fScore = 0,sScore = 0):
+        super().__init__()
+        self.status = "quit"
+        self.fScore =fScore
+        self.sScore = sScore
+        self.lblInstructions = simpleGE.MultiLabel()
+        self.lblInstructions.textLines = [
+            "To begin press the space key",
+            "Top player's controls are wasd",
+            "Bottom player's controls are the arrow keys",
+            "First to 10 points wins",
+            "Press Q to quit"]
+        self.lblInstructions.center = (320, 240)
+        self.lblInstructions.size = (450, 200)
+        self.lblScore = simpleGE.Label()
+        self.lblScore.center = (320, 100)
+        self.lblScore.size = (400, 30)
+        self.lblScore.text = f"Previous Score: {self.fScore} : {self.sScore}"
+        self.sprites = [self.lblInstructions,self.lblScore]
+    def process(self):
+        if self.isKeyPressed(pygame.K_q):
+            self.status = "quit"
+            self.stop()
+        elif self.isKeyPressed(pygame.K_SPACE):
+            self.status = "play"
+            self.stop()
 class Nets(simpleGE.Sprite):
     def __init__(self, scene):
         super().__init__(scene)
         self.setSize(200, 1)
         self.x = self.screenWidth/2
-
 class Puck(simpleGE.Sprite):
     def __init__(self, scene):
         super().__init__(scene)
@@ -13,13 +39,17 @@ class Puck(simpleGE.Sprite):
         self.boundAction = self.BOUNCE
         self.x = self.screenWidth/2
         self.y = self.screenHeight/2
-        self.rest
         self.setAngle((random.randint(0, 360)))
-        self.dx = 5
-        self.dy = 5
+        self.dx = 1
+        self.dy = 1
     def rest(self):
         self.x = self.screenWidth/2
         self.y = self.screenHeight/2
+        self.setAngle((random.randint(0, 360)))
+        self.dx = random.randint(-5,5)
+        self.dy = random.randint(-5,5)
+
+        
 
 class Paddle(simpleGE.Sprite):
     def __init__(self,scene):
@@ -81,7 +111,6 @@ class Game(simpleGE.Scene):
             relY *= 2
             relY *=maxDY
             self.puck.dy = relY
-
         if self.puck.collidesWith(self.paddleTop):
             self.puck.dx *= -1
             relY = self.puck.y - self.paddleTop.y
@@ -95,13 +124,38 @@ class Game(simpleGE.Scene):
         if self.puck.collidesWith(self.netTop):
             self.puck.rest()
             self.bottomScore +=1
+        if self.isKeyPressed(pygame.K_r):
+            self.puck.rest()
+        if self.topScore == 10:
+            self.stop()
+        if self.bottomScore == 10:
+            self.stop()
+
+        
+
+       
+
+
+
 
 
 
 
 def main():
-    game = Game()
-    game.start()
+    keepGoing = True    
+    fScore =0 
+    sScore = 0
+    while keepGoing:
+        intro = Intro(fScore,sScore)
+        intro.start()
+        if intro.status == "quit":
+            keepGoing = False
+        else:
+            game = Game()
+            game.start()
+            fScore = game.topScore
+            sScore = game.bottomScore
+            
 if __name__ == "__main__":
     main()
 
