@@ -42,7 +42,7 @@ class Puck(simpleGE.Sprite):
         self.setAngle((random.randint(0, 360)))
         self.dx = 1
         self.dy = 1
-    def rest(self):
+    def reset(self):
         self.x = self.screenWidth/2
         self.y = self.screenHeight/2
         self.setAngle((random.randint(0, 360)))
@@ -119,13 +119,13 @@ class Game(simpleGE.Scene):
             relY *=maxDY
             self.puck.dy = relY
         if self.puck.collidesWith(self.netBottom):
-            self.puck.rest()
+            self.puck.reset()
             self.topScore +=1
         if self.puck.collidesWith(self.netTop):
-            self.puck.rest()
+            self.puck.reset()
             self.bottomScore +=1
         if self.isKeyPressed(pygame.K_r):
-            self.puck.rest()
+            self.puck.reset()
         if self.topScore == 10:
             self.stop()
         if self.bottomScore == 10:
