@@ -114,7 +114,7 @@ class Game(simpleGE.Scene):
         if self.puck.collidesWith(self.paddleTop):
             self.puck.dx *= -1
             relY = self.puck.y - self.paddleTop.y
-            relY /= self.paddleBottom.rect.height
+            relY /= self.paddleBottom.distanceTo(self.puck.)
             relY *= 2
             relY *=maxDY
             self.puck.dy = relY
