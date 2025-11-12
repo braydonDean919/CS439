@@ -1,9 +1,9 @@
 Intro
 For this, I will create an image of a Minecraft villager using PyGame. The trickiest thing will be figuring out where to put everything. 
 
-
 Reflection
 The best way to show my locations and double-check that everything is centered is to create 2 lines that run down the middle of the screen, one along the x-axis and the other along the Y-axis. The best way to figure out placements is by looking at the other shapes and adding and subtracting their positions. This means once I have placed the body, everything else can just be created around that.
+
 Plan
 Make and set up the screen so that it shows
 Set the background to white
