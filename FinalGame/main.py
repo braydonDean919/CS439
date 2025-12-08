@@ -115,7 +115,7 @@ What would you like to do? Pick a Number
             else:
                 events.append(createEvent(characters))
         
-        if command == "4":
+        if command == "3":
             name = input("Name: ")
             hp = int(input("Hit Points: "))
             hit = int(input("Hit Chance (0-100): "))
@@ -128,16 +128,16 @@ What would you like to do? Pick a Number
             recover = int(input("Recovery Speed: "))
             enemy = Enemy.Character(name, hp, hit, dmg, armor,mana, knowledge, manaRecovery, manaDamage,recover)
             characters.append(enemy)
-        if command == "5":
+        if command == "4":
             if len(events) > 0:
                 Story.Story(events,characters)
             else:
                 print("\nNo events were created — no story to show.")
-        if command == "6":
+        if command == "5":
              saveGame(characters,events)
-        if command == "7":
+        if command == "6":
             characters, events =loadGame()
-        if command == "8":
+        if command == "7":
              keepGoing = False
 
     # Play the game
