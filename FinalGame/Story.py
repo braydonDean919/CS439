@@ -1,3 +1,4 @@
+import Combat
 class Story:
     def __init__(self, events, characters):
         self.events = events
@@ -28,6 +29,7 @@ class Story:
             print(f"{event.description}")
 
     def doCombat(self, attacker, defender):
-        from Combat import Combat
-        fight = Combat(attacker, defender)
+        Combat.Combat(attacker, defender)
+        
+        
         

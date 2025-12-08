@@ -11,7 +11,28 @@
             "manaRecovery": 100,
             "manaDamage": 100,
             "recover": 10
+        },
+        {
+            "name": "Goblin",
+            "hitPoints": 50,
+            "hitChance": 50,
+            "maxDamage": 50,
+            "armor": 50,
+            "mana": 50,
+            "knowledge": 50,
+            "manaRecovery": 50,
+            "manaDamage": 50,
+            "recover": 50
         }
     ],
-    "events": []
+    "events": [
+        {
+            "title": "Attack",
+            "description": "attack",
+            "characters": [
+                "Braydon",
+                "Goblin"
+            ]
+        }
+    ]
 }
